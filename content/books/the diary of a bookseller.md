@@ -1,9 +1,9 @@
 ---
 title: "The Diary of a Bookseller by Shaun Bythell"
+date: 2024-02-05
 tags:
   - books
 ---
-
 
 The book is a divided into chapters and each chapter is called after the month actions happened. The book starts in February and ends in January.
 
