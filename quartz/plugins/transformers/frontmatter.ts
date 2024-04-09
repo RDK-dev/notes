@@ -5,33 +5,16 @@ import yaml from "js-yaml"
 import toml from "toml"
 import { slugTag } from "../../util/path"
 import { QuartzPluginData } from "../vfile"
-import chalk from "chalk"
+import { i18n } from "../../i18n"
 
 export interface Options {
-  delims: string | string[]
+  delimiters: string | [string, string]
   language: "yaml" | "toml"
 }
 
 const defaultOptions: Options = {
-  delims: "---",
+  delimiters: "---",
   language: "yaml",
-}
-
-function coerceDate(fp: string, d: unknown): Date | undefined {
-  if (d === undefined || d === null) return undefined
-  const dt = new Date(d as string | number)
-  const invalidDate = isNaN(dt.getTime()) || dt.getTime() === 0
-  if (invalidDate) {
-    console.log(
-      chalk.yellow(
-        `\nWarning: found invalid date "${d}" in \`${fp}\`. Supported formats: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#date_time_string_format`,
-      ),
-    )
-
-    return undefined
-  }
-
-  return dt
 }
 
 function coalesceAliases(data: { [key: string]: any }, aliases: string[]) {
@@ -61,12 +44,11 @@ export const FrontMatter: QuartzTransformerPlugin<Partial<Options> | undefined> 
   const opts = { ...defaultOptions, ...userOpts }
   return {
     name: "FrontMatter",
-    markdownPlugins() {
+    markdownPlugins({ cfg }) {
       return [
         [remarkFrontmatter, ["yaml", "toml"]],
         () => {
           return (_, file) => {
-            const fp = file.data.filePath!
             const { data } = matter(Buffer.from(file.value), {
               ...opts,
               engines: {
@@ -75,10 +57,10 @@ export const FrontMatter: QuartzTransformerPlugin<Partial<Options> | undefined> 
               },
             })
 
-            if (data.title) {
+            if (data.title != null && data.title.toString() !== "") {
               data.title = data.title.toString()
-            } else if (data.title === null || data.title === undefined) {
-              data.title = file.stem ?? "Untitled"
+            } else {
+              data.title = file.stem ?? i18n(cfg.configuration.locale).propertyDefaults.title
             }
 
             const tags = coerceToArray(coalesceAliases(data, ["tags", "tag"]))
@@ -88,16 +70,6 @@ export const FrontMatter: QuartzTransformerPlugin<Partial<Options> | undefined> 
             if (aliases) data.aliases = aliases
             const cssclasses = coerceToArray(coalesceAliases(data, ["cssclasses", "cssclass"]))
             if (cssclasses) data.cssclasses = cssclasses
-            const created = coerceDate(fp, coalesceAliases(data, ["created", "date"]))
-
-            if (created) data.created = created
-            const modified = coerceDate(
-              fp,
-              coalesceAliases(data, ["modified", "lastmod", "updated", "last-modified"]),
-            )
-            if (modified) data.modified = modified
-            const published = coerceDate(fp, coalesceAliases(data, ["published", "publishDate"]))
-            if (published) data.published = published
 
             // fill in frontmatter
             file.data.frontmatter = data as QuartzPluginData["frontmatter"]
@@ -118,11 +90,9 @@ declare module "vfile" {
         description: string
         publish: boolean
         draft: boolean
+        lang: string
         enableToc: string
         cssclasses: string[]
-        created: Date
-        modified: Date
-        published: Date
       }>
   }
 }
