@@ -16,7 +16,7 @@ const config: QuartzConfig = {
     },
     baseUrl: "notes.justtext.net",
     ignorePatterns: ["private", "templates", ".obsidian"],
-    defaultDateType: "modified",
+    defaultDateType: "published",
     theme: {
       fontOrigin: "googleFonts",
       cdnCaching: true,
