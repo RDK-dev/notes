@@ -53,7 +53,7 @@ const config: QuartzConfig = {
     transformers: [
       Plugin.FrontMatter(),
       Plugin.CreatedModifiedDate({
-        priority: ["git", "frontmatter", "filesystem"], // you can add 'git' here for last modified from Git but this makes the build slower
+        priority: ["frontmatter", "git", "filesystem"], // you can add 'git' here for last modified from Git but this makes the build slower
       }),
       Plugin.Latex({ renderEngine: "katex" }),
       Plugin.SyntaxHighlighting({
