@@ -29,9 +29,10 @@ export default ((opts?: Partial<ContentMetaOptions>) => {
     if (text) {
       const segments: (string | JSX.Element)[] = []
 
-      if (fileData.dates) {
+      //  Here uncomment this part to show date
+      /*if (fileData.dates) {
         segments.push(formatDate(getDate(cfg, fileData)!, cfg.locale))
-      }
+      } */
 
       // Display reading time if enabled
       if (options.showReadingTime) {
