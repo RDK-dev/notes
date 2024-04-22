@@ -56,11 +56,11 @@ export function PageList({ cfg, fileData, allFiles, limit }: Props) {
                 </p>
               </div>
             <ul class="tags">
-                {tags.filter((tag) => tag != fileData.slug?.split("topics/")[1]).map((tag) => (                  
+                {tags.filter((tag) => tag != fileData.slug?.split("tags/")[1]).map((tag) => (                  
                   <li>
                     <a
                       class="internal tag-link"
-                      href={resolveRelative(fileData.slug!, `topics/${tag}` as FullSlug)}
+                      href={resolveRelative(fileData.slug!, `tags/${tag}` as FullSlug)}
                     >
                       <i class="fa-regular fa-message"></i>&nbsp;&nbsp;{tag}
                     </a>
