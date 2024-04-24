@@ -15,7 +15,7 @@ const config: QuartzConfig = {
       provider: "plausible",
     },
     baseUrl: "notes.justtext.net",
-    ignorePatterns: ["private", "templates", ".obsidian"],
+    ignorePatterns: ["private", "templates", ".obsidian", "meta", "inbox"],
     defaultDateType: "modified",
     theme: {
       fontOrigin: "googleFonts",
