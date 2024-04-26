@@ -2,8 +2,10 @@
 title: "Changelog"
 ---
 
+## 2024-04-26
+-  07:21 · [[match sentences]]
 ## 2024-04-24
--  22:34 · [[match markdown title and url]]
+-  22:43 · [[match markdown title and url]]
 ## 2024-04-22
 -  12:37 · [[bookworm 194 mastery]]
 ## 2024-04-19
@@ -15,4 +17,3 @@ title: "Changelog"
 -  16:23 · [[benefits of memorizing]]
 -  15:24 · [[focus is a muscle]]
 -  15:19 · [[focused frogs and visionary birds]]
--  15:09 · [[how to motivate yourself]]
