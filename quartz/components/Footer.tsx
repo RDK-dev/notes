@@ -13,7 +13,7 @@ export default ((opts?: Options) => {
     const links = opts?.links ?? []
     return (
       <footer class={`${displayClass ?? ""}`}>
-        <a href="https://notes.justtext.net/changelog/">Changelog </a>
+        <a href="https://notes.justtext.net/changelog">Changelog </a>
         <hr />
         <p>
           Created with <a href="https://quartz.jzhao.xyz/">Quartz </a>, © {year}
